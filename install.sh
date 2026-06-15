@@ -1,4 +1,29 @@
 #!/bin/bash
+clear
+
+echo "=================================="
+echo "     VPS SCRIPT LICENSE CHECK     "
+echo "=================================="
+
+# get license from GitHub
+VALID_KEY=$(curl -s https://raw.githubusercontent.com/NETHEAD001-vpsscript/nethead001-autovpsscript/main/license.txt | tr -d '\r')
+
+# ask user
+read -rp "Enter License Key: " USER_KEY
+USER_KEY=$(echo "$USER_KEY" | tr -d '\r')
+
+# check match
+if [[ "$USER_KEY" != "$VALID_KEY" ]]; then
+  echo ""
+  echo "❌ WRONG LICENSE KEY!"
+  echo "ACCESS DENIED!"
+  exit 1
+fi
+
+echo ""
+echo "✅ LICENSE VALID - WELCOME"
+sleep 2
+clear
 #
 #  |════════════════════════════════════════════════════════════════════════════════════════════════════════════════|
 #  • Autoscript AIO Lite Menu By cyber Project                                          |
