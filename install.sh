@@ -5,14 +5,18 @@ echo "=================================="
 echo "     VPS SCRIPT LICENSE CHECK     "
 echo "=================================="
 
-# get license from GitHub
-VALID_KEY=$(curl -s https://raw.githubusercontent.com/NETHEAD001-vpsscript/nethead001-autovpsscript/main/license.txt | tr -d '\r')
+URL="https://raw.githubusercontent.com/NETHEAD001-vpsscript/nethead001-autovpsscript/main/license.txt"
 
-# ask user
+VALID_KEY=$(curl -fsSL "$URL" | tr -d '\r\n')
+
+if [[ -z "$VALID_KEY" ]]; then
+  echo "❌ ERROR: Cannot fetch license from server"
+  exit 1
+fi
+
 read -rp "Enter License Key: " USER_KEY
-USER_KEY=$(echo "$USER_KEY" | tr -d '\r')
+USER_KEY=$(echo "$USER_KEY" | tr -d '\r\n')
 
-# check match
 if [[ "$USER_KEY" != "$VALID_KEY" ]]; then
   echo ""
   echo "❌ WRONG LICENSE KEY!"
